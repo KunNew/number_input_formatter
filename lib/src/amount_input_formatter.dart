@@ -86,6 +86,11 @@ class AmountInputFormatter extends TextInputFormatter {
     required TextEditingValue newValue,
     required String newText,
   }) {
+    // Handle empty text case first to prevent range errors
+    if (newText.isEmpty) {
+      return 0;
+    }
+    
     // Special case: if newText is just a minus sign, place cursor after it
     if (newText == '-') {
       return 1;
@@ -170,7 +175,15 @@ class AmountInputFormatter extends TextInputFormatter {
             (newText.length - oldValue.text.length)
         : oldValue.selection.baseOffset + 1;
 
-    return offset > newText.length ? newText.length - 1 : offset;
+    // Ensure offset is within valid range
+    if (offset > newText.length) {
+      return newText.length;
+    }
+    if (offset < 0) {
+      return 0;
+    }
+    
+    return offset;
   }
 
   @override
@@ -214,9 +227,15 @@ class AmountInputFormatter extends TextInputFormatter {
   }) {
     if (attachedController == null) return formatter.setNumValue(number);
 
+    final formattedText = formatter.setNumValue(number);
+    final cursorPosition = formattedText.isEmpty ? 0 : 
+        (formatter.indexOfDot > 0 && formatter.indexOfDot <= formattedText.length 
+            ? formatter.indexOfDot 
+            : formattedText.length);
+
     attachedController.value = TextEditingValue(
-      text: formatter.setNumValue(number),
-      selection: TextSelection.collapsed(offset: formatter.indexOfDot),
+      text: formattedText,
+      selection: TextSelection.collapsed(offset: cursorPosition),
     );
 
     return attachedController.text;
