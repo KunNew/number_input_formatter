@@ -1,0 +1,21 @@
+name: number_input_formatter_example
+description: Example app demonstrating the number_input_formatter package.
+version: 1.0.0
+
+environment:
+  sdk: '>=2.17.0 <4.0.0'
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  number_input_formatter:
+    path: ../
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true

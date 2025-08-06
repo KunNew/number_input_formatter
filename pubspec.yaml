@@ -1,0 +1,20 @@
+name: number_input_formatter
+description: A minimalistic and configurable Flutter package for formatting number input in TextField widgets with support for thousands separators, decimal places, and negative numbers.
+version: 1.0.0
+homepage: https://github.com/KunNew/number_input_formatter
+
+environment:
+  sdk: '>=2.17.0 <4.0.0'
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  # This package does not contain any platform-specific code or assets
